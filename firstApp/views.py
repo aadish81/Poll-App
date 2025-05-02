@@ -25,4 +25,13 @@ def Showchoices(request,id):
     context = {"Choices":Choices}
     return HttpResponse(template.render(context,request))
     
+def upVote(request,id):
+    choice = Choice.objects.get(id=id)
+    choice.votes += 1
+    choice.save() 
+    template = loader.get_template("firstApp/updateVote.html")
+  
+    context = {"Choice":choice}
+    return HttpResponse(template.render(context,request))
+    
     
