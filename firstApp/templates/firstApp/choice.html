@@ -1,24 +1,36 @@
-{%if Choices%}
-<ul>
-{%for i in Choices%}
-    <li>
-        <h1>
-            {{i.chioce_text}}
-        </h1>
-        <div>
-            <h2>
-                Vote:{{i.votes}}
-            </h2>
-            <input type = 'radio' name='vote' value='1' ><a href="/firstapp/choice/{{i.id}}">Up-Vote</a></input><br>
+{% load static tailwind_tags %}
+
+{%if Choices and Question%}
+{% tailwind_css %}
+<div class ="flex flex-col justify-center items-center h-screen bg-teal-300 border-b rounded-lg shadow-lg gap-5" >
+    <div>
+        <h1 class ="text-white text-3xl font-bold  font-mono">
+            {{Question.questions_text}}
+        </h1>       
+    </div>
+    <div class="flex flex-col gap-6 border p-9  rounded shadow-lg"> 
+        
+        {%for i in Choices%}
+            <li class="flex gap-5 ">
             
-            
-        </div>    
-    </li>
+                <h1>
+                    {{i.chioce_text}}
+                </h1>
+                <h2>
+                    {{i.votes}}
+                </h2>
+                <a href="/firstapp/choice/{{i.id}}"><img src="./thumb-up.png" alt="up-vote"/></a>
+            </li>         
 
-{%endfor%}
-
-{%else%}
-<h1>There are no vote open for this question</h1>
-
+        {%endfor%}
+        
+    </div>    
+        {%else%}
+    <div>
+            <h1>
+                There are no vote open for this question
+            </h1>
+    </div>        
+</div>
 
 {%endif%}

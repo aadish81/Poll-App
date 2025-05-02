@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse 
 from django.http import JsonResponse
 from .models import Question
@@ -22,16 +22,18 @@ def Showchoices(request,id):
     question = Question.objects.get(id=id)
     Choices = question.choices.all()
     template = loader.get_template("firstApp/choice.html")
-    context = {"Choices":Choices}
+    context = {"Choices":Choices,"Question":question}
     return HttpResponse(template.render(context,request))
     
 def upVote(request,id):
     choice = Choice.objects.get(id=id)
     choice.votes += 1
-    choice.save() 
-    template = loader.get_template("firstApp/updateVote.html")
-  
-    context = {"Choice":choice}
-    return HttpResponse(template.render(context,request))
+    choice.save()  
+    question = choice.question
+    Choices = question.choices.all()
+    template = loader.get_template("firstApp/choice.html")
+    Context = {"Choices":Choices,"Question":question}
+    return HttpResponse(template.render(Context,request))
     
-    
+def home(request):
+    return render(request,'base.html')
