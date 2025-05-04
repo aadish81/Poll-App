@@ -1,12 +1,15 @@
 from  django.urls import path
 from . import views
 
+
+app_name = 'firstapp'
+
 urlpatterns = [
-    path('hello/', views.say_hello),
-    path('goodbye/', views.say_goodbye),
-    path('questions/', views.Questions),
-    path('question/<int:id>/',views.Showchoices),
-    path('choice/<int:id>/', views.upVote),
-    path('', views.home)
-    
+
+    path('questions/', views.Questions, name='questions'),
+    path('question/<int:id>/',views.Showchoices, name='question'),
+    path('choice/<int:id>/', views.upVote, name = 'choice'),
+    path('addpoll/',views.addPoll,name='addpoll'),
+    path('delete/<int:id>/', views.deleteQuestion, name = 'delete'),
+    path('editpoll/<int:id>/', views.editPoll, name='editpoll')
 ]
