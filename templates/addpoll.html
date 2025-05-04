@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Add Poll {% endblock title %}
+
+{% block content %}
+
+{%load static tailwind_tags%}
+{%load static  %}
+{%tailwind_css%}
+<div class="flex justify-center items-center h-auto ">
+    <div class=" rounded-3xl shadow-2xl p-5">
+        <form method="POST" action="{% url 'firstapp:addpoll'%}">
+            {%csrf_token%}
+            <div class="my-3">
+            <h2 class="mb-10 text-center w-full  text-2xl font-bold">Add Question</h2>
+            {{question_form.as_p}}
+            </div>
+            <h2 class="my-10 w-full text-center text-2xl  font-bold">Add Options</h2>
+            {{formset.management_form}}
+            {%for form in formset%}
+                {{form.as_p}}
+            {%endfor %}
+
+            <button type="submit" class="bg-amber-400 h-12 w-full mt-5 rounded-2xl hover:cursor-pointer" >Submit</button>
+
+        </form>
+    </div>    
+</div>
+
+{% endblock content %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title%}Homepage{% endblock title   %}
+
+{% block content %}
+{% if questions %}
+
+{%load static tailwind_tags %}
+{%tailwind_css%} 
+<div class = "flex  justify-center items-center   w-full mt-6  ">
+    <div class="flex flex-col shadow-2xl p-5 rounded-2xl">
+        <div class="border-b bg-slate-900/60 shadow-2xs p-5 rounded-2xl mb-4">
+            <h1 class= "font-bold font-mono text-4xl text-white ">
+                Polls
+            <h1>
+        </div> 
+        <table>       
+            {%for question in questions%}
+            <tr class=" font-mono h-15">
+                <td>
+                    <a href="/firstapp/question/{{question.id}}">
+                    {{question.questions_text}}
+                    </a>
+                </td>
+                <td>
+                    <button class= "text-white h-9 w-15  rounded-lg hover:cursor-pointer bg-green-500  ml-9  mr-2 font-mono ">
+                        <a href={% url 'firstapp:editpoll' question.id %}>Edit</a>
+                    </button>
+                </td>
+                <td>
+                    <button class= "text-white h-9   w-18 bg-red-600 rounded-lg hover:cursor-pointer ">
+                        <a href="{%url 'firstapp:delete' question.id %}">Remove</a>
+                    </button>
+                </td>
+                <p>{{question.choice_text}}</p>
+            </tr>
+            {%endfor%}
+        </table> 
+        <a href="{%url 'firstapp:addpoll'%}" class = " flex justify-center items-center text-white bg-blue-700 w-full h-10  rounded-lg hover:cursor-pointer ">Add Poll</a>
+    </div>         
+</div>
+
+{%else%}
+    <p class="flex justify-center items-center bg-black text-white h-screen w-full font-bold text-6xl">No Polls are Available</p>
+   
+{%endif%}  
+
+{% endblock content %}

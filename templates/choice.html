@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Choices{% endblock title %}
+
+{% block content %}
+
+{% load static tailwind_tags %}
+
+{%load static %}
+{%if Choices and Question%}
+{% tailwind_css %}
+<div class ="flex  justify-center items-center h-screen " >
+    <div class = "border-2 rounded-4xl drop-shadow-2xl   p-5"> 
+        <div class="font-bold text-4xl font-mono mb-8 bg-slate-900 p-5 rounded-2xl">
+            <h1 class =" text-3xl font-bold text-white font-mono">
+                {{Question.questions_text}}
+            </h1>       
+        </div>
+        <table > 
+            
+            {%for i in Choices%}
+                <tr class="   h-14 ">
+                    <td class= "">
+                        <h1 class= "">
+                            {{i.chioce_text}}
+                        </h1>
+                    </td>
+                    <td>
+                        <h2 class="mx-10">
+                            {{i.votes}}
+                        </h2>
+                    </td>
+                    <td>
+                        <a href="/firstapp/choice/{{i.id}}"><img src="{% static 'images/thumb-up.png'%}" class="max-h-auto w-10" /></a>
+                    </td>
+                </tr>         
+
+            {%endfor%}
+            
+            </table>    
+            {%else%}
+        <div>
+            <p class="flex justify-center items-center  h-screen w-full font-bold text-6xl">No Polls are Available</p>
+        </div>  
+    </div>      
+</div>
+
+{%endif%}
+
+{% endblock content %}
